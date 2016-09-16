@@ -1,5 +1,0 @@
-{
-  "proxy": "http://proxy02:9090/",
-  "rejectUnauthorized": false,
-  "registryURL": "http://api.typings.org/"
-}
