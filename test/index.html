@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Unit Tests</title>
+
+    <link rel="stylesheet" href="../node_modules/jasmine-core/lib/jasmine-core/jasmine.css"/>
+
+    <script src="../node_modules/jasmine-core/lib/jasmine-core/jasmine.js"></script>
+    <script src="../node_modules/jasmine-core/lib/jasmine-core/jasmine-html.js"></script>
+    <script src="../node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
+
+    <script src="../node_modules/zone.js/dist/zone.js"></script>
+    <script src="../node_modules/reflect-metadata/Reflect.js"></script>
+
+    <script src="../node_modules/systemjs/dist/system.src.js"></script>
+</head>
+<body>
+<script>
+    System.config({
+        map: {
+            '@angular': '../node_modules/@angular',
+            'rxjs': '../node_modules/rxjs',
+            'moment': '../node_modules/moment'
+        },
+        packages: {
+            '@angular/common': { main: 'index.js', defaultExtension: 'js' },
+            '@angular/compiler': { main: 'index.js', defaultExtension: 'js' },
+            '@angular/core': { main: 'index.js', defaultExtension: 'js' },
+            '@angular/forms': { main: 'index.js', defaultExtension: 'js' },
+            '@angular/http': { main: 'index.js', defaultExtension: 'js' },
+            '@angular/platform-browser': { main: 'index.js', defaultExtension: 'js' },
+            '@angular/platform-browser-dynamic': { main: 'index.js', defaultExtension: 'js' },
+            '@angular/router': { main: 'index.js', defaultExtension: 'js' },
+            'rxjs': { defaultExtension: 'js' },
+            'moment': { main: 'min/moment-with-locales.js', defaultExtension: 'js' },
+            'src': { defaultExtension: 'js' },
+            'test': { defaultExtension: 'js' }
+        }
+    });
+
+    setTimeout(function () {
+        Promise.all([
+        ]).then(window.onload).catch(console.error.bind(console));
+    }, 0);
+</script>
+</body>
+</html>

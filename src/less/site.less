@@ -1,0 +1,62 @@
+/* Simple site.less in der bootstrap und custom styles kompiliert werden */
+
+@import "bootstrap/bootstrap.less";
+@import "helperclasses.less";
+@import "variables.less";
+
+body { 
+    padding-top:                    @navbar-height + 20;
+    overflow-x:                     hidden;
+}
+
+.user-image {
+    width:                          32px;
+    padding-top:                    4px;
+}  
+
+.brand-image {
+    height:                         50px;
+    border-radius:                  @border-radius-special;
+}
+
+h4 {
+    color: @brand-primary;
+}
+
+.list-group.questiongrouplist .list-group-item {
+    padding: 2px;
+    border: 0;
+}
+
+.list-group.questiongrouplist {
+    border-bottom: 2px solid @brand-secondary;
+    border-top: 2px solid @brand-secondary;
+}
+
+.NORD {
+    position: absolute;
+    width:60px;
+    height:60px;
+    transform: rotate(270deg);
+}
+
+.SUED {
+    position: absolute;
+    width:60px;
+    height:60px;
+    transform: rotate(90deg);
+}
+
+.WEST {
+    position: absolute;
+    width:60px;
+    height:60px;
+    transform: rotate(180deg);
+}
+
+.OST {
+    position: absolute;
+    width:60px;
+    height:60px;
+    transform: rotate(0deg);
+}
