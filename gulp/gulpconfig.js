@@ -11,7 +11,7 @@ module.exports = {
         styles: ['src/styles/*.css', 'src/styles/*.css.map'],
         assets: ['src/img/**/*'],
         fonts: ['src/fonts/*.eot', 'src/fonts/*.svg', 'src/fonts/*.ttf', 'src/fonts/*.woff', 'src/fonts/*.woff2'],
-        specs: 'test/**/*.spec.ts'
+        specs: ['test/**/*.spec.ts', 'test/**/*.ts']
     },
     targets: {
         build: 'build',
@@ -19,12 +19,14 @@ module.exports = {
         styles: 'build/css',
         assets: 'build/img',
         fonts: 'build/fonts',
-        testing: 'testing'
+        testing: 'testing',
+        testassets: 'testing/img'
     },
     vendorScripts: [
         'node_modules/core-js/client/shim.js',
         'node_modules/oidc-client/dist/oidc-client.js',
         'node_modules/zone.js/dist/zone.js',
+        'node_modules/zone.js/dist/long-stack-trace-zone.js',
         'node_modules/reflect-metadata/Reflect.js',
         'node_modules/systemjs/dist/system.src.js',
         'node_modules/lodash/lodash.min.js'

@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import * as Rx from 'rxjs/Rx';
-import {ReplaySubject} from "rxjs/Rx";
+import {ReplaySubject} from 'rxjs/Rx';
 
 @Injectable()
 export class WebSocketService {
@@ -19,6 +19,6 @@ export class WebSocketService {
 
         ws.onmessage = (evt) => {
             this.subject.next(JSON.parse(evt.data));
-        }
+        };
     }
 }

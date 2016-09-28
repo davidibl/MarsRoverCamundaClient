@@ -2,31 +2,33 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>LV1871 - Questionnaire Kata</title>
+    <title>LV1871 - Mars-Shark-Rover</title>
 
     <!-- inject:js -->
     <!-- endinject -->
 
     <script>
         System.config({
+            paths: {
+                'lib:': 'lib/'
+            },
             map: {
-                '@angular': 'lib/@angular',
-                'rxjs': 'lib/rxjs',
-                'moment': 'lib/moment',
-                'angular2-websocket/angular2-websocket': 'lib/angular2-websocket.js'
+                '@angular/core': 'lib:/@angular/core/bundles/core.umd.js',
+                '@angular/common': 'lib:/@angular/common/bundles/common.umd.js',
+                '@angular/compiler': 'lib:/@angular/compiler/bundles/compiler.umd.js',
+                '@angular/platform-browser': 'lib:/@angular/platform-browser/bundles/platform-browser.umd.js',
+                '@angular/platform-browser-dynamic': 'lib:/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+                '@angular/http': 'lib:/@angular/http/bundles/http.umd.js',
+                '@angular/router': 'lib:/@angular/router/bundles/router.umd.js',
+                '@angular/forms': 'lib:/@angular/forms/bundles/forms.umd.js',
+                'rxjs': 'lib:/rxjs',
+                'jsrsasign': 'lib/jsrsasign/lib',
             },
             packages: {
                 app: { format: 'register', defaultExtension: 'js' },
-                '@angular/common': { main: 'index.js', defaultExtension: 'js' },
-                '@angular/compiler': { main: 'index.js', defaultExtension: 'js' },
-                '@angular/core': { main: 'index.js', defaultExtension: 'js' },
-                '@angular/forms': { main: 'index.js', defaultExtension: 'js' },
-                '@angular/http': { main: 'index.js', defaultExtension: 'js' },
-                '@angular/platform-browser': { main: 'index.js', defaultExtension: 'js' },
-                '@angular/platform-browser-dynamic': { main: 'index.js', defaultExtension: 'js' },
-                '@angular/router': { main: 'index.js', defaultExtension: 'js' },
                 'rxjs': { defaultExtension: 'js' },
-                'moment': { main: 'min/moment-with-locales.js', defaultExtension: 'js' }
+                'moment': { main: 'moment.js', defaultExtension: 'js' },
+                'jsrsasign': { main: 'jsrsasign.js', defaultExtension: 'js' }
             }
         });
         System.import('app/main')
@@ -39,7 +41,7 @@
     <meta name="viewport" content="width=device-width,initial-scale=1">
 </head>
 <body>
-    <sample-app>
-    </sample-app>
+    <app>
+    </app>
 </body>
 </html>

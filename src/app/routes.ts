@@ -1,12 +1,10 @@
-import {provideRouter, RouterConfig} from '@angular/router';
 import {LocationStrategy, HashLocationStrategy} from '@angular/common';
-import { SampleBodyComponent } from './component/samplebody/samplebody.component';
+import {RouterModule, Routes} from '@angular/router';
+import {ModuleWithProviders} from '@angular/core';
+import { MarsComponent } from './components/mars/mars.component';
 
-export const routes: RouterConfig = [
-    { path: '', component: SampleBodyComponent }
+export const routes: Routes = [
+    { path: '', component: MarsComponent }
 ];
 
-export const APP_ROUTER_PROVIDERS = [
-    provideRouter(routes),
-    { provide: LocationStrategy, useClass: HashLocationStrategy }
-];
+export const routing: ModuleWithProviders = RouterModule.forRoot(routes);

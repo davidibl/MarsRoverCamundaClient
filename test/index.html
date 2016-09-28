@@ -11,6 +11,12 @@
     <script src="../node_modules/jasmine-core/lib/jasmine-core/boot.js"></script>
 
     <script src="../node_modules/zone.js/dist/zone.js"></script>
+    <script src="../node_modules/zone.js/dist/long-stack-trace-zone"></script>
+    <script src="../node_modules/zone.js/dist/proxy"></script>
+    <script src="../node_modules/zone.js/dist/sync-test"></script>
+     <script src="../node_modules/zone.js/dist/jasmine-patch.js"></script>
+    <script src="../node_modules/zone.js/dist/async-test.js"></script>
+    <script src="../node_modules/zone.js/dist/fake-async-test.js"></script>
     <script src="../node_modules/reflect-metadata/Reflect.js"></script>
 
     <script src="../node_modules/systemjs/dist/system.src.js"></script>
@@ -18,25 +24,34 @@
 <body>
 <script>
     System.config({
-        map: {
-            '@angular': '../node_modules/@angular',
-            'rxjs': '../node_modules/rxjs',
-            'moment': '../node_modules/moment'
-        },
-        packages: {
-            '@angular/common': { main: 'index.js', defaultExtension: 'js' },
-            '@angular/compiler': { main: 'index.js', defaultExtension: 'js' },
-            '@angular/core': { main: 'index.js', defaultExtension: 'js' },
-            '@angular/forms': { main: 'index.js', defaultExtension: 'js' },
-            '@angular/http': { main: 'index.js', defaultExtension: 'js' },
-            '@angular/platform-browser': { main: 'index.js', defaultExtension: 'js' },
-            '@angular/platform-browser-dynamic': { main: 'index.js', defaultExtension: 'js' },
-            '@angular/router': { main: 'index.js', defaultExtension: 'js' },
-            'rxjs': { defaultExtension: 'js' },
-            'moment': { main: 'min/moment-with-locales.js', defaultExtension: 'js' },
-            'src': { defaultExtension: 'js' },
-            'test': { defaultExtension: 'js' }
-        }
+            paths: {
+                'lib:': '../node_modules/'
+            },
+            map: {
+                '@angular/core': 'lib:/@angular/core/bundles/core.umd.js',
+                '@angular/common': 'lib:/@angular/common/bundles/common.umd.js',
+                '@angular/compiler': 'lib:/@angular/compiler/bundles/compiler.umd.js',
+                '@angular/platform-browser': 'lib:/@angular/platform-browser/bundles/platform-browser.umd.js',
+                '@angular/platform-browser-dynamic': 'lib:/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic.umd.js',
+                '@angular/http': 'lib:/@angular/http/bundles/http.umd.js',
+                '@angular/router': 'lib:/@angular/router/bundles/router.umd.js',
+                '@angular/forms': 'lib:/@angular/forms/bundles/forms.umd.js',
+                '@angular/core/testing': 'lib:/@angular/core/bundles/core-testing.umd.js',
+                '@angular/platform-browser/testing': 'lib:/@angular/platform-browser/bundles/platform-browser-testing.umd.js',
+                '@angular/compiler/testing': 'lib:/@angular/compiler/bundles/compiler-testing.umd.js',
+                '@angular/platform-browser-dynamic/testing': 'lib:/@angular/platform-browser-dynamic/bundles/platform-browser-dynamic-testing.umd.js',
+                'rxjs': 'lib:/rxjs',
+                'jsrsasign': 'lib/jsrsasign/lib',
+                
+            },
+            packages: {
+                app: { format: 'register', defaultExtension: 'js' },
+                'rxjs': { defaultExtension: 'js' },
+                'moment': { main: 'moment.js', defaultExtension: 'js' },
+                'jsrsasign': { main: 'jsrsasign.js', defaultExtension: 'js' },
+                'src': { defaultExtension: 'js' },
+                'test': { defaultExtension: 'js' }
+            }        
     });
 
     setTimeout(function () {

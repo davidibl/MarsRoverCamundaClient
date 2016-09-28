@@ -20,9 +20,6 @@ gulp.task('test:externalModules', ['test:externalModules:clean'], () => {
     return merge(Object.keys(config.externalModules).map(m => gulp.src(config.externalModules[m]).pipe(gulp.dest(path.join('node_modules', m)))));
 });
 
-gulp.task('test:externalModules:watch', () => {
-    return watch(Object.keys(config.externalModules).map(m => config.externalModules[m]).reduce((a, b) => a.concat(b)), batch((e, done) => run('build:externalModules', 'build:scripts', done)));
-});
 
 gulp.task('test:scripts', () => {
     return gulp.src(config.sources.scripts.concat(config.sources.specs), { base: '.' })
@@ -30,6 +27,16 @@ gulp.task('test:scripts', () => {
         .pipe(typescript(Object.assign({}, config.typescript, { declaration: false })))
         .pipe(sourcemaps.write('.'))
         .pipe(gulp.dest(config.targets.testing));
+});
+
+gulp.task('test:templates', () => {
+    return gulp.src(config.sources.templates, { base: config.base })
+        .pipe(gulp.dest(config.targets.testing + '/src/'));
+});
+
+gulp.task('test:assets', () => {
+    return gulp.src(config.sources.assets)
+        .pipe(gulp.dest(config.targets.testassets));
 });
 
 gulp.task('test:scripts:watch', () => {
@@ -47,14 +54,15 @@ gulp.task('test:index', () => {
         .pipe(gulp.dest(config.targets.testing));
 });
 
-gulp.task('test:watch', done => {
-    run(['test:externalModules:watch', 'test:scripts:watch'], done);
-});
-
 gulp.task('test', done => {
     run('test:clean',
-        'test:externalModules',
         'test:scripts',
+        'test:templates',
+        'test:assets',
         'test:index',
         done);
+});
+
+gulp.task('test:watch', done => {
+    run(['test:scripts:watch'], done);
 });

@@ -1,13 +1,13 @@
 import { Component, OnInit } from '@angular/core';
 import { MarsRoverStateService } from '../../service/marsRoverStateService';
-import {MarsRoverState} from "../../model/somemodel/marsRoverState";
+import {MarsRoverState} from '../../model/marsRoverState';
 
 @Component({
     moduleId: __moduleName,
-    selector: 'sample-body',
-    templateUrl: 'samplebody.html'
+    selector: 'mars',
+    templateUrl: 'mars.html'
 })
-export class SampleBodyComponent implements OnInit {
+export class MarsComponent implements OnInit {
 
     public marsRoverState: MarsRoverState;
     private _service: MarsRoverStateService;
@@ -28,7 +28,7 @@ export class SampleBodyComponent implements OnInit {
 
     getYPosition() {
         let y = (this.marsRoverState == null) ? 0 : this.marsRoverState.yCoordinate;
-        return ((10-y) * 60) + 'px';
+        return ( (10 - y) * 60) + 'px';
     }
 
     getXPosition() {
