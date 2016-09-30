@@ -8,13 +8,8 @@ import {WebSocketService} from './webSocketService';
 @Injectable()
 export class MarsRoverStateService {
 
-    private websocketUrl: string = 'ws://localhost:9001/roverstate';
-
     private _http: Http;
     private _config: Config;
-
-    private _dataCache: Array<MarsRoverState> = null;
-    private _examplesSubject: ReplaySubject<MarsRoverState> = new ReplaySubject<MarsRoverState>();
 
     private _websocketSubject: ReplaySubject<MarsRoverState> = new ReplaySubject<MarsRoverState>();
 
@@ -22,9 +17,9 @@ export class MarsRoverStateService {
         this._config = config;
         this._http = http;
 
-        this._http.get('http://localhost:9001/api/marsrover/state').subscribe((data) => this._examplesSubject.next(JSON.parse(data.text())));
+        this._http.get('http://' + this._config.getRemoteUrlBase() + '/api/marsrover/state').subscribe((data) => this._websocketSubject.next(JSON.parse(data.text())));
 
-        webSocketService.connect(this.websocketUrl).subscribe((data) => {
+        webSocketService.connect('ws://' + this._config.getRemoteUrlBase() + '/roverstate').subscribe((data) => {
             this.handleSocketEvent(data);
         });
     }
@@ -33,12 +28,8 @@ export class MarsRoverStateService {
         this._websocketSubject.next(value);
     }
 
-    public getExampleData(): ReplaySubject<MarsRoverState> {
+    public getStateChangeSubject(): ReplaySubject<MarsRoverState> {
         return this._websocketSubject;
-    }
-
-    public  getInitialState(): ReplaySubject<MarsRoverState> {
-        return this._examplesSubject;
     }
 
     public sendCommandAndState(command: string, state: MarsRoverState) {

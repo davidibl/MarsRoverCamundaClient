@@ -2,7 +2,7 @@
 
 export class Config {
 
-    private _remoteUrlBase: string = 'http://localhost:9002';
+    private _remoteUrlBase: string = 'localhost:9001';
 
     public getRemoteUrlBase(): string {
         return this._remoteUrlBase;
