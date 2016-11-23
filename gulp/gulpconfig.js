@@ -1,6 +1,6 @@
 'use strict';
 
-module.exports = {
+let config = {
     base: 'src',
     index: 'src/index.html',
     testIndex: 'test/index.html',
@@ -39,15 +39,24 @@ module.exports = {
     ],
     externalModules: {
     },
-    typescript: {
-        target: 'ES5',
-        module: 'system',
-        moduleResolution: 'node',
-        sourceMap: true,
-        emitDecoratorMetadata: true,
-        experimentalDecorators: true,
-        removeComments: false,
-        noImplicitAny: false,
-        isolatedModules: true
+    typeScript: {
+        buildMode: 'default',
+        compilerOptions: {
+            target: 'ES5',
+            module: 'system',
+            moduleResolution: 'node',
+            sourceMap: true,
+            emitDecoratorMetadata: true,
+            experimentalDecorators: true,
+            removeComments: false,
+            noImplicitAny: false
+        },
     }
 };
+
+config.typeScriptFastBuild = {
+    buildMode: 'fast',
+    compilerOptions: Object.assign({}, config.typeScript.compilerOptions, { isolatedModules: true })
+};
+
+module.exports = config;

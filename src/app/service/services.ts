@@ -3,5 +3,5 @@ import { WebSocketService } from './webSocketService';
 
 export const APP_SERVICES = [
     MarsRoverStateService,
-    WebSocketService
+    WebSocketService,
 ];

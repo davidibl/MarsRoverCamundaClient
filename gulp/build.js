@@ -3,6 +3,7 @@
 const gulp = require('gulp'), config = require('./gulpconfig');
 
 const path = require('path'),
+    fs = require('fs'),
     del = require('del'),
     tslint = require('gulp-tslint'),
     sourcemaps = require('gulp-sourcemaps'),
@@ -12,7 +13,11 @@ const path = require('path'),
     watch = require('gulp-watch'),
     batch = require('gulp-batch'),
     run = require('run-sequence'),
+    embed = require('gulp-angular-embed-templates'),
+    count = require('gulp-count'),
+    replaceExtension = require('replace-ext'),
     less = require('gulp-less');
+    
 
 gulp.task('build:clean', () => del(path.join(config.targets.build, '**/*')));
 
@@ -44,17 +49,41 @@ gulp.task('build:less', function(){
 
 gulp.task('build:lint', () => {
     return gulp.src(config.sources.scripts)
-        .pipe(tslint())
-        .pipe(tslint.report('verbose', { emitError: false }));
+        .pipe(tslint({formatter: "verbose"}))
+        .pipe(tslint.report({ emitError: false }));
 });
 
 gulp.task('build:scripts', () => {
-    return gulp.src(config.sources.scripts, { base: config.base })
-        .pipe(sourcemaps.init())
-        .pipe(typescript(config.typescript))
-        .pipe(sourcemaps.write('.'))
-        .pipe(gulp.dest(config.targets.build));
+    let files = gulp.src(config.sources.scripts, { base: config.base });
+    return transpileScripts(files, config.typeScript);
 });
+
+function transpileScripts(files, typeScriptConfig) {
+    if (typeScriptConfig.buildMode === 'fast') {
+        files = files.pipe(tslint({ reporter: 'verbose' }))
+            .pipe(tslint.report({ emitError: false }))
+    }
+    const ts = files
+        .pipe(sourcemaps.init())
+        .pipe(embed({
+            sourceType: 'ts',
+            minimize: {
+                empty: true,
+                cdata: true,
+                comments: true,
+                spare: true,
+                quotes: true
+            }
+        }))
+        .pipe(count('Transpiled ## files'))
+        .pipe(typescript(typeScriptConfig.compilerOptions));
+    return merge([
+        ts.dts.pipe(gulp.dest(config.targets.build)),
+        ts.js
+            .pipe(sourcemaps.write('.'))
+            .pipe(gulp.dest(config.targets.build))
+    ]);
+}
 
 gulp.task('build:scripts:watch', () => {
     return watch(config.sources.scripts, batch((e, done) => run('build:lint', 'build:scripts', done)));
@@ -108,13 +137,18 @@ gulp.task('build:index:watch', () => {
 });
 
 gulp.task('build:watch', done => {
-    run(['build:externalModules:watch', 'build:scripts:watch', 'build:templates:watch', 'build:styles:watch', 'build:assets:watch', 'build:fonts:watch', 'build:index:watch'], done);
+    run(['build:scripts:watch', 'build:templates:watch', 'build:styles:watch', 'build:assets:watch', 'build:fonts:watch', 'build:index:watch'], done);
+});
+
+gulp.task('build:less', function(){
+    return gulp.src('src/less/site.less')
+        .pipe(less())
+        .pipe(gulp.dest(config.targets.styles));
 });
 
 gulp.task('build', done => {
-    run(['build:clean', 'build:lint'],
-        'build:externalModules',
-        ['build:vendorScripts', 'build:nodeModules', 'build:scripts', 'build:templates', 'build:styles', 'build:assets', 'build:fonts', 'build:less'],
+    run('build:clean',
+        ['build:lint', 'build:vendorScripts', 'build:nodeModules', 'build:scripts', 'build:styles', 'build:assets', 'build:fonts', 'build:less'],
         'build:index',
         done);
 });

@@ -3,5 +3,5 @@ import { WebSocketService } from './service/webSocketService';
 
 export const APP_SERVICES = [
     { provide: MarsRoverStateService, useClass: MarsRoverStateService },
-    { provide: WebSocketService, useClass: WebSocketService }
+    { provide: WebSocketService, useClass: WebSocketService },
 ];
