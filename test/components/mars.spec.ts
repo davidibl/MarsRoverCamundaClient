@@ -28,7 +28,7 @@ describe('SampleBodyComponent', () => {
 
         this.stateService = {
             getInitialState: jasmine.createSpy("getInitialState").and.returnValue(new ReplaySubject<any>()),
-            getExampleData: jasmine.createSpy("getExampleData").and.returnValue(new ReplaySubject<any>())
+            getExampleData: jasmine.createSpy("getStateChangeSubject").and.returnValue(new ReplaySubject<any>())
         };
 
         TestBed.configureTestingModule({
@@ -42,7 +42,7 @@ describe('SampleBodyComponent', () => {
 
     describe('ngOnInit', () => {
 
-        it('sollte bei der Initialisierung getExampleData in dem Service aufrufen', done => {
+        it('sollte bei der Initialisierung getStateChangeSubject in dem Service aufrufen', done => {
 
             TestBed.compileComponents().then(() => {
                 const fixture = TestBed.createComponent(MarsComponent);

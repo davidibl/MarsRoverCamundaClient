@@ -7,7 +7,7 @@ import { IMarsRoverState } from '../../model/marsRoverState';
     selector: 'mars',
     templateUrl: 'mars.html',
 })
-export class MarsComponent implements OnInit {
+export class MarsComponent implements OnInit{
 
     private _service: MarsRoverStateService;
     private commandstring: string;
@@ -19,22 +19,10 @@ export class MarsComponent implements OnInit {
     }
 
     public ngOnInit() {
-        this._service.getInitialState().subscribe((data) => this.marsRoverState = data);
-        this._service.getExampleData().subscribe(marsRoverState => this.marsRoverState = marsRoverState);
+        this._service.getStateChangeSubject().subscribe((data) => this.marsRoverState = data);
     }
 
     public sendCommandsAndState() {
         this._service.sendCommandAndState(this.commandstring, this.marsRoverState);
     }
-
-    public getYPosition() {
-        let y = (this.marsRoverState == null) ? 0 : this.marsRoverState.yCoordinate;
-        return ( (10 - y) * 60) + 'px';
-    }
-
-    public getXPosition() {
-        let x = (this.marsRoverState == null) ? 0 : this.marsRoverState.xCoordinate;
-        return (50 + (x * 60)) + 'px';
-    }
-
 }
