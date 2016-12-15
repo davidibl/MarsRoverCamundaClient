@@ -28,7 +28,6 @@ b: move backward
 r: turn right
 l: turn left
 
-
 Das System ist 10x10 Felder gro�.
 
 Die Status Updates werden nach eienr Neuberechnung des Status per Push an den Client gesendet.
